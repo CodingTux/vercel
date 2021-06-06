@@ -61,9 +61,9 @@ class Home
   }
 
   async fetchFiles() {
-    this.setState({loading: true})
+    
     if(localStorage.getItem("userId")){
-
+      this.setState({loading: true})
       try{
         const userFiles: FetchFileResponse = await FetchFiles(localStorage.getItem("userId") as String) as any as FetchFileResponse
 
