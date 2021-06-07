@@ -30,10 +30,10 @@ export const UploadFiles = (userId: String, files: Array<any>) => {
 }
 
 
-export default {
-    API: {
-        RegisterUser,
-        FetchFiles,
-        UploadFiles
-    }
+const APIS = {
+    RegisterUser,
+    FetchFiles,
+    UploadFiles  
 }
+
+export default APIS;

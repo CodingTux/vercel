@@ -1,4 +1,4 @@
-import React, { Key } from 'react'
+import React from 'react'
 import Browser from './Browser'
 import Terminal from './Terminal'
 import Sidebar from './Sidebar'
@@ -63,11 +63,8 @@ class Home
   async fetchFiles() {
     
     if(localStorage.getItem("userId")){
-      this.setState({loading: true})
       try{
         const userFiles: FetchFileResponse = await FetchFiles(localStorage.getItem("userId") as String) as any as FetchFileResponse
-
-
         console.log(userFiles)
   
         this.setState({
@@ -78,8 +75,8 @@ class Home
         })
       }catch(err){
         console.log(err)
+        this.setState({loading: false})
       }
-
     }
   }
 
@@ -160,6 +157,7 @@ class Home
   }
 
   async registerOrLogin() {
+    this.setState({loading: true})
     await RegisterUser(this.state.userID)
     localStorage.setItem("userId", this.state.userID)
     this.fetchFiles()
@@ -210,7 +208,7 @@ class Home
         <ReflexContainer orientation="vertical">
           <ReflexElement className="left-pane" flex={0.2}>
             <div className="pane-content">
-              <Sidebar files={this.state.files} setFiles={this.setFiles} setMetadata={this.setMetadata} selectedId={this.state.metadata.id}/>
+              <Sidebar filesLoading={this.state.loading} files={this.state.files} setFiles={this.setFiles} setMetadata={this.setMetadata} selectedId={this.state.metadata.id}/>
             </div>
           </ReflexElement>
           <ReflexSplitter className="splitter"/>
